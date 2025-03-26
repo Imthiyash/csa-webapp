@@ -17,6 +17,7 @@
 /* .Navigation_bar{
     background-color: black;
 } */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 .Navigation_bar {
     position: relative;
@@ -71,7 +72,7 @@
         display: none;
     }
     .Nav_dropdown{
-        display: block;
+        display: none;
     }
     .drop-down-off{
         display: block;
@@ -298,8 +299,6 @@
     right: 0px; /* Position for next button */
 }
 
-
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 .team-heading {
     text-align: center;
@@ -776,8 +775,6 @@
     right: 0px; /* Position for next button */
 }
 
-
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 .team-heading {
     text-align: center;
