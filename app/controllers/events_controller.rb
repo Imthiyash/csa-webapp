@@ -1,8 +1,7 @@
 class EventsController < ApplicationController
     before_action :authenticate_user!
-    
+
     def home
-        
     end
 
     def index
@@ -30,13 +29,13 @@ class EventsController < ApplicationController
     def start
         params.permit(:id)
         Event.find_by(id: params[:id])&.update(event_type: 2)
-        redirect_to events_path, notice: 'Event started successfully'
+        redirect_to events_path, notice: "Event started successfully"
     end
 
     def end
         params.permit(:id)
         Event.find_by(id: params[:id])&.update(event_type: 3)
-        redirect_to events_path, notice: 'Event completed successfully'
+        redirect_to events_path, notice: "Event completed successfully"
     end
 
     def destroy
@@ -45,6 +44,6 @@ class EventsController < ApplicationController
         event_name = event.event_name.to_s
         event.destroy
         # EventRegistrations.where(event_name: event_name).destroy_all
-        redirect_to events_path, notice: 'Event deleted successfully'
+        redirect_to events_path, notice: "Event deleted successfully"
     end
 end
