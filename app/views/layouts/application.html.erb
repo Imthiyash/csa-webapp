@@ -1,28 +1,212 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Csa Webapp" %></title>
+    <title><%= content_for(:title) || "Csa Website" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/csa_logo.png" type="image/png">
     <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
     <%= javascript_importmap_tags %>
+    <!-- In the <head> section for Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        background-image: url('/new_bg1.jpg');
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center;
+        margin: 0;
+        height: 100vh;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        border-bottom: 300px;
+      }
+      @media (max-width: 768px){
+        body{
+          background-position: center top;
+        }
+      }
+
+      footer {
+        background-color: #262626;
+        color: white;
+        padding: 10px 20px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+        margin-top: auto;
+      }
+
+      .footer-container {
+        position: relative;
+        left: 0;right: 0;bottom: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #262626;
+        color: white;
+        padding: 10px 20px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+      }
+
+      .footer-left,
+      .footer-right {
+        margin: 0;
+      }
+
+      .footer-right a {
+        color: #FFD700; /* Goldish color for links */
+        text-decoration: none;
+      }
+
+      .footer-right a:hover {
+        text-decoration: underline;
+      }
+
+      .footer-middle {
+        display: flex;
+        gap: 15px;
+      }
+
+      .footer-middle a {
+        color: white;
+        font-size: 20px;
+        text-decoration: none;
+      }
+
+      .footer-middle a:hover {
+        color: #FFD700;
+      }
+
+      @media (max-width: 768px){
+        .footer-middle a {
+          color: white;
+          font-size: 15px;
+          text-decoration: none;
+        }
+
+        .footer-middle {
+          display: flex;
+          gap: 15px;
+          margin:10px;
+        }
+      }
+
+    </style>
   </head>
 
   <body>
-    <%= yield %>
+    <div class="Navigation_bar">
+      <div class="brand_div">
+        <div><img src="/csa_logo.png" height="100px"></div>
+        <div class="Brand"><%= link_to "CSA", root_path %></div>
+      </div>
+      <div class="nav_links flex-row-start-center">
+        <!--<div class="nav_link"><%= link_to "Resources", root_path %></div>-->
+        <div class="nav_link"><%= link_to "Hackathons", events_path %></div>
+        <div class="nav_link"><%= link_to "Cs trophy", cstrophy_index_path %></div>
+        <div class="nav_link"><%= link_to "Sports", events_path %></div>
+        <div class="nav_link"><%= link_to "Merch", products_path %></div>
+        <div class="nav_link"><%= link_to "Profile", profile_path %></div>
+        <div>
+          <%if current_user%>
+            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+          <%else%>
+            <%= link_to "Login", new_user_session_path, class: "btn btn-primary" %>
+          <%end%>
+        </div>
+      </div>
+      <div class="Nav_dropdown">
+        <div class="drop-down-button">
+          <img class="drop-down-off" src="/three-dots-vertical-b.svg" height="20px">
+        </div>
+        <div>
+          <div class="drop-down-menu">
+            <div class="menu flex-column-start-center">
+              <div><img class="drop-down-on" src="/three-dots-horizontal-b.svg" height="20px"></div>
+              <!--<div class="nav_link"><%= link_to "Resources", root_path %></div>-->
+              <div class="nav_link"><%= link_to "Hackathons", events_path %></div>
+              <div class="nav_link"><%= link_to "Cs trophy", cstrophy_index_path %></div>
+              <div class="nav_link"><%= link_to "Sports", events_path %></div>
+              <div class="nav_link"><%= link_to "Merch", products_path %></div>
+              <div class="nav_link"><%= link_to "Profile", profile_path %></div>
+              <div>
+                <%if current_user%>
+                  <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger", style: "margin:0px 4px;" %>
+                <%else%>
+                  <%= link_to "Login", new_user_session_path, class: "btn btn-primary", style: "margin:0px 4px;" %>
+                <%end%>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-column-start-center">
+      <% if notice%>
+        <p class="notice"><%= notice %></p> 
+      <% elsif alert %>
+        <p class="alert"><%= alert %></p>
+      <% end %>
+    </div>
+    <div class="page_margin">
+      <%= yield %>
+    </div>
+    <!-- Footer Section -->
+    <footer>
+      <div class="footer-container">
+        <p class="footer-left">&copy; 2025 CSA Website. All rights reserved.</p>
+        <div class="footer-middle">
+          <a href="https://www.instagram.com/csa_iitmadras/" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/company/cs-association-iit-madras/" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/@csa.iitmadras" target="_blank"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p class="footer-right">
+          <a>Privacy Policy</a> |
+          <a>Terms of Service</a> |
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=csa@cse.iitm.ac.in&su=Contact%20Us" target="_blank">Contact Us</a>
+        </p>
+      </div>
+    </footer>
+
+
+    <script>
+      const ofb = document.querySelector('.drop-down-off');
+      const onb = document.querySelector('.drop-down-on');
+      const ddm = document.querySelector('.drop-down-menu');
+      onb.style.display = 'none';
+      ddm.style.display = 'none';
+      ofb.addEventListener('click', function(){
+        ofb.style.display = 'none';
+        onb.style.display = 'block';
+        ddm.style.display = 'block';
+      });
+      onb.addEventListener('click', function(){
+        ofb.style.display = 'block';
+        onb.style.display = 'none';
+        ddm.style.display = 'none';
+      });
+
+    </script>
+    <!-- At the end of the <body> section for Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <%= javascript_include_tag 'auto_hide_notice' %>
   </body>
 </html>
