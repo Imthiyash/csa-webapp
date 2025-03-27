@@ -3,7 +3,7 @@ class PagesController < ApplicationController
     before_action :authorize_csa_user, only: :user_list
 
     def home
-      # @announcements = Announcement.all
+      @announcements = Announcement.all
     end
 
     def profile

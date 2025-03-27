@@ -55,3 +55,23 @@
 </div>
 </div>
 </div>
+
+<script>
+document.addEventListener("turbo:load", function () {
+  const eventBoxes = document.querySelectorAll(".event_box");
+  let visibleCount = 0; // Start with no events visible
+
+  function revealNextEvent() {
+    if (visibleCount < eventBoxes.length) {
+      const box = eventBoxes[visibleCount];
+      box.classList.add("visible"); // Add class to trigger slide-in
+
+      visibleCount++;
+      setTimeout(revealNextEvent, 100);// Adjust delay time as needed
+    }
+  }
+
+  // Start revealing events with a delay
+  setTimeout(revealNextEvent, 100);
+});
+</script>

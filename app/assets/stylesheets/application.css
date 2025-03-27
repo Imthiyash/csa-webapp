@@ -34,7 +34,7 @@
     z-index: 100;
 }
 
-.Brand a {
+body[data-theme="light"] .Brand a {
     color: #2E2E2E;
     font-weight: bold;
     font-size: 100px;
@@ -44,7 +44,17 @@
     text-decoration: none;
 }
 
-.Brand a:hover {
+body[data-theme="dark"] .Brand a {
+    color: whitesmoke;
+    font-weight: bold;
+    font-size: 100px;
+    padding: 0px 40px;
+    font-family: Roboto;
+    transition: color 0.6s ease;
+    text-decoration: none;
+}
+
+body .Brand a:hover {
     color: #4A3B2F;
     text-decoration: none;
 }
@@ -56,13 +66,13 @@
     align-items: center;
 }
 
-@media (min-width: 1090px){
+@media (min-width: 1190px){
     .Nav_dropdown{
         display: none;
     }
 }
 
-@media (max-width: 1090px){
+@media (max-width: 1190px){
     .Navigation_bar{
         flex-direction: row-reverse;
         justify-content: space-between;
@@ -79,7 +89,11 @@
     .drop-down-on{
         display: none;
     }
-    .Brand a{
+    body[data-theme="dark"] .Brand a{
+        font-size: 60px;
+        padding: 0px 10px;
+    }
+    body[data-theme="light"] .Brand a{
         font-size: 60px;
         padding: 0px 10px;
     }
@@ -88,11 +102,11 @@
     }
 }
 
-.nav_links[data-theme="light"] .nav_link a{
+body[data-theme="light"] .nav_link a{
     font-size: 19px;
     font-weight: 600;
     margin: 0px 4px;
-    padding : 5px 20px;
+    padding : 5px 15px;
     font-family: Roboto;
     color: #4A3B2F;
     text-decoration: none;
@@ -100,11 +114,11 @@
     transition: color 0.3s ease, font-size 0.3s ease, border-color 0.1s ease-in, background-color 0.6s ease-in;
 }
 
-.nav_links[data-theme="dark"] .nav_link a{
+body[data-theme="dark"] .nav_link a{
     font-size: 19px;
     font-weight: 600;
     margin: 0px 4px;
-    padding : 5px 20px;
+    padding : 5px 15px;
     font-family: Roboto;
     color: white;
     text-decoration: none;
@@ -112,26 +126,13 @@
     transition: color 0.3s ease, font-size 0.3s ease, border-color 0.1s ease-in, background-color 0.6s ease-in;
 }
 
-/* .nav_link a{
-    font-size: 19px;
-    font-weight: 600;
-    margin: 0px 4px;
-    padding : 5px 20px;
-    font-family: Roboto;
-    color: #4A3B2F;
-    text-decoration: none;
-    border-bottom: 3px solid transparent;
-    transition: color 0.3s ease, font-size 0.3s ease, border-color 0.1s ease-in, background-color 0.6s ease-in;
-} */
-
-.nav_links[data-theme="light"] .nav_link a:hover{
+body[data-theme="light"] .nav_link a:hover{
     text-decoration: none;
     color: #4A3B2F;
-    /* background-color: rgba(255, 255, 255, 2); */
     border-color: #4A3B2F;
 }
 
-.nav_links[data-theme="dark"] .nav_link a:hover{
+body[data-theme="dark"] .nav_link a:hover{
     text-decoration: none;
     color: white;
     /* background-color: rgba(255, 255, 255, 2); */
@@ -166,8 +167,18 @@
     align-items: center;
 }
 
-.menu{
+body[data-theme="light"] .menu{
     background-color: rgb(192, 182, 171, 0.7);
+    position: fixed;
+    width: 50vh;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+}
+
+body[data-theme="dark"] .menu{
+    background-color: rgba(52, 30, 7, 0.7);
     position: fixed;
     width: 50vh;
     top: 0;
@@ -522,7 +533,21 @@
     margin-top: 0px;
 }
 
-.event_box{
+body[data-theme="dark"] .events_container .events_table .event_box{
+    background: rgb(174, 161, 136, 0.9); /*rgba(49, 49, 25, 0.9);*/
+    color: rgb(74, 59, 47);
+    padding: 10px;
+    margin: 30px;
+    height: 200px;
+    width: 300px;
+    /* display : none; */
+    opacity: 0;
+    /* border: 0.1px solid rgb(255, 255, 255); */
+    transform: translateX(500px) matrix(1, 0, -0.404026, 1, 0, 0);
+    transition: transform 0.6s ease-out, opacity 0.6s ease-out, margin 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+
+body[data-theme="light"] .events_container .events_table .event_box{
     background: rgb(74, 59, 47, 0.9); /*rgba(49, 49, 25, 0.9);*/
     color: rgb(174, 161, 136);
     padding: 10px;
@@ -536,7 +561,7 @@
     transition: transform 0.6s ease-out, opacity 0.6s ease-out, margin 0.3s ease, width 0.3s ease, height 0.3s ease;
 }
 
-.event_box.visible {
+body .events_container .events_table .event_box.visible {
     opacity: 1;
     /* display: flex; */
     transform: translateX(0) matrix(1, 0, -0.404026, 1, 0, 0); /* Slide into place */
@@ -547,9 +572,18 @@
 }
 
 @media (min-width: 768px){
-    .event_box:hover{
+    body[data-theme="light"] .events_container .events_table .event_box:hover{
         /* background: rgb(123, 105, 70); */
         background: rgb(74, 59, 47);
+        margin: 20px;
+        padding: 18px;
+        height: 220px;
+        width: 320px;
+    }
+
+    body[data-theme="dark"] .events_container .events_table .event_box:hover{
+        /* background: rgb(123, 105, 70); */
+        background: rgb(174, 161, 136);
         margin: 20px;
         padding: 18px;
         height: 220px;
@@ -994,8 +1028,13 @@
     font-weight: bold;
 }
 
-.points-table tr:nth-child(n+4) {
+body[data-theme="light"] .points-table tr:nth-child(n+4) {
     background-color: #f8f9fa; /* Light grey for remaining rows */
+}
+
+body[data-theme="dark"] .points-table tr:nth-child(n+4) {
+    color: whitesmoke;
+    background-color: #373738; /* Light grey for remaining rows */
 }
 
 /* Highlight effect on hover */

@@ -41,54 +41,6 @@
       </div>
     <% end %>
 
-    <%
-=begin%>
- <div id="imageCarousel" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img
-            src="https://via.placeholder.com/800x400?text=Image+1"
-            class="d-block w-100"
-            alt="Image 1"
-          />
-        </div>
-        <div class="carousel-item">
-          <img
-            src="https://via.placeholder.com/800x400?text=Image+2"
-            class="d-block w-100"
-            alt="Image 2"
-          />
-        </div>
-        <div class="carousel-item">
-          <img
-            src="https://via.placeholder.com/800x400?text=Image+3"
-            class="d-block w-100"
-            alt="Image 3"
-          />
-        </div>
-      </div>
-      <a
-        class="carousel-control-prev"
-        href="#imageCarousel"
-        role="button"
-        data-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a
-        class="carousel-control-next"
-        href="#imageCarousel"
-        role="button"
-        data-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
-    </div> 
-<%
-=end%>
-
     <table class="points-table">
       <thead>
         <tr>
@@ -99,15 +51,15 @@
       <tbody>
         <% @batches.each_with_index do |batch, index| %>
           <tr class="batch-row" data-index="<%= index %>">
-            <td><%= "Batch #{batch.batch_name}" %></td>
-            <td><%= batch.points %></td>
+            <td><%= "#{batch.batch_name.upcase}" %></td>
+            <td><%= batch.batch_points %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
 
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
+      document.addEventListener("turbo:load", function () {
         const rows = document.querySelectorAll(".batch-row");
 
         rows.forEach((row, index) => {
