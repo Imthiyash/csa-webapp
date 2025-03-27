@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_26_192754) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_27_043533) do
+  create_table "batch_points", force: :cascade do |t|
+    t.string "batch_name"
+    t.decimal "batch_points"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "event_name"
     t.integer "event_type"

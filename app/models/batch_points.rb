@@ -1,0 +1,2 @@
+class BatchPoints < ApplicationRecord
+end
