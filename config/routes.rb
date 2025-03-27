@@ -15,16 +15,25 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  get "products/export_sales", to: "products#export_sales"
+
+  delete "products", to: "products#destroy", as: "delete_products"
+
   root "pages#home"
 
   get "/profile", to: "pages#profile"
   get "/user_list", to: "pages#user_list"
   post "events/:id/start", to: "events#start", as: :start
   post "events/:id/end", to: "events#end", as: :end
-  resources :event_registrations
   resources :events
   resources :cstrophy
   resources :products
   resources :sales
   resources :announcements
+
+  resources :products do
+    collection do
+      get :export_sales
+    end
+  end
 end

@@ -1,7 +1,7 @@
 class CstrophyController < ApplicationController
     before_action :authenticate_user!
     def index
-        @batches = BatchPoints.order(points: :desc)
+        @batches = BatchPoints.order(batch_points: :desc)
     end
 
     def create
