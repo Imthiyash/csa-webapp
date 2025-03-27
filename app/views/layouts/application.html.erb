@@ -4,6 +4,7 @@
     <title><%= content_for(:title) || "Csa Website" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -19,7 +20,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
       body {
-        background-image: url('/new_bg1.jpg');
+        /* background-image: url('/new_bg1_l.jpg'); */
         background-size: cover;
         background-attachment: fixed;
         background-repeat: no-repeat;
@@ -32,6 +33,15 @@
         min-height: 100vh;
         border-bottom: 300px;
       }
+
+      body[data-theme="light"]{
+        background-image: url('/new_bg1_l.jpg');
+      }
+
+      body[data-theme="dark"]{
+        background-image: url('/new_bg1_d.jpg');
+      }
+
       @media (max-width: 768px){
         body{
           background-position: center top;
@@ -107,13 +117,13 @@
     </style>
   </head>
 
-  <body>
+  <body data-theme="light">
     <div class="Navigation_bar">
       <div class="brand_div">
         <div><img src="/csa_logo.png" height="100px"></div>
         <div class="Brand"><%= link_to "CSA", root_path %></div>
       </div>
-      <div class="nav_links flex-row-start-center">
+      <div class="nav_links flex-row-start-center" data-theme="light">
         <!--<div class="nav_link"><%= link_to "Resources", root_path %></div>-->
         <% if current_user && current_user.username == "csa" %>
           <div class="nav_link"><%= link_to "Users", user_list_path %></div>
@@ -123,6 +133,7 @@
         <div class="nav_link"><%= link_to "Sports", events_path %></div>
         <div class="nav_link"><%= link_to "Merch", products_path %></div>
         <div class="nav_link"><%= link_to "Profile", profile_path %></div>
+        <!--<button class="mode_btn nav_link btn btn-danger"> Mode </button>-->
         <div>
           <%if current_user%>
             <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
@@ -191,28 +202,60 @@
 
 
     <script>
+      // document.addEventListener("DOMContentLoaded", function() {
+        
+      // });
+
       document.addEventListener("turbo:load", () => {
+    setTimeout(() => {
+        let themeToggle = document.querySelector(".mode_btn");
+        let body = document.body;
+        let elems = document.querySelector(".nav_links");
+
+        // Load theme from localStorage
+        let storedTheme = localStorage.getItem("theme") || "light";
+        body.setAttribute("data-theme", storedTheme);
+        if (elems) elems.setAttribute("data-theme", storedTheme);
+
+        if (themeToggle) {
+            themeToggle.addEventListener("click", function() {
+                let currentTheme = body.getAttribute("data-theme");
+
+                if (currentTheme === "light") {
+                    body.setAttribute("data-theme", "dark");
+                    if (elems) elems.setAttribute("data-theme", "dark");
+                    localStorage.setItem("theme", "dark");
+                } else {
+                    body.setAttribute("data-theme", "light");
+                    if (elems) elems.setAttribute("data-theme", "light");
+                    localStorage.setItem("theme", "light");
+                }
+            });
+        }
+
         let ofb = document.querySelector('.drop-down-off');
         let onb = document.querySelector('.drop-down-on');
         let ddm = document.querySelector('.menu');
 
         if (onb && ofb && ddm) {
-          onb.style.display = 'none';
-          ddm.style.display = 'none';
-
-          ofb.addEventListener('click', function () {
-            ofb.style.display = 'none';
-            onb.style.display = 'block';
-            ddm.style.display = 'flex';
-          });
-
-          onb.addEventListener('click', function () {
-            ofb.style.display = 'block';
             onb.style.display = 'none';
             ddm.style.display = 'none';
-          });
+
+            ofb.addEventListener('click', function () {
+                ofb.style.display = 'none';
+                onb.style.display = 'block';
+                ddm.style.display = 'flex';
+            });
+
+            onb.addEventListener('click', function () {
+                ofb.style.display = 'block';
+                onb.style.display = 'none';
+                ddm.style.display = 'none';
+            });
         }
-      });
+    }, 100);
+});
+
 
     </script>
     <!-- At the end of the <body> section for Bootstrap JS -->

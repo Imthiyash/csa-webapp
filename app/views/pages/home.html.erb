@@ -172,51 +172,69 @@
 
 
     <script>
+document.addEventListener("DOMContentLoaded", () => {
+    let currentImage = 0;
+    let currentSlide = 0;
+    let autoSlide; // Declare autoSlide in the global scope
 
-        let currentImage = 0;
-
-        function changeImages(direction) {
-            const Images = document.querySelector(".image-container");
-            const totalImages = Images.children.length;
-
-            currentImage = (currentImage + direction + totalImages) % totalImages;
-
-            Images.style.transform = `translateX(-${currentImage * 100}%)`;
+    function changeImages(direction) {
+        const imagesContainer = document.querySelector(".image-container");
+        if (!imagesContainer) {
+            // console.error("Element '.image-container' not found.");
+            return;
         }
 
-        setInterval(() => {
-            changeImages(1);
+        const totalImages = imagesContainer.children.length;
+        if (totalImages === 0) {
+            // console.error("No images found in '.image-container'.");
+            return;
+        }
+
+        currentImage = (currentImage + direction + totalImages) % totalImages;
+        imagesContainer.style.transform = `translateX(-${currentImage * 100}%)`;
+    }
+
+    setInterval(() => {
+        changeImages(1);
+    }, 3000);
+
+    function changeTeamSlide(direction) {
+        const slidesContainer = document.querySelector(".carousel-slides");
+        if (!slidesContainer) {
+            // console.error("Element '.carousel-slides' not found.");
+            return;
+        }
+
+        const totalSlides = slidesContainer.children.length;
+        if (totalSlides === 0) {
+            // console.error("No slides found in '.carousel-slides'.");
+            return;
+        }
+
+        currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+        slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    function startAutoSlide() {
+        autoSlide = setInterval(() => {
+            changeTeamSlide(1);
         }, 3000);
+    }
 
+    function stopAutoSlide() {
+        clearInterval(autoSlide);
+    }
 
-        let currentSlide = 0;
-        let autoSlide; // Declare autoSlide in the global scope
+    startAutoSlide();
 
-        function changeTeamSlide(direction) {
-            const slides = document.querySelector(".carousel-slides");
-            const totalSlides = slides.children.length;
-
-            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
-
-            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
-        }
-
-        function startAutoSlide() {
-            autoSlide = setInterval(() => {
-                changeTeamSlide(1);
-            }, 3000);
-        }
-
-        function stopAutoSlide() {
-            clearInterval(autoSlide);
-        }
-
-        startAutoSlide();
-
-        const carousel = document.querySelector(".carousel-slides");
-
+    const carousel = document.querySelector(".carousel-slides");
+    if (carousel) {
         carousel.addEventListener("mouseenter", stopAutoSlide);
         carousel.addEventListener("mouseleave", startAutoSlide);
+    } else {
+        // console.error("Element '.carousel-slides' not found.");
+    }
+});
 
 
     </script>
