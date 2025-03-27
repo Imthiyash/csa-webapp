@@ -49,10 +49,6 @@
     text-decoration: none;
 }
 
-.Nav_dropdown{
-    display: none;
-}
-
 .brand_div{
     display: flex;
     flex-direction: row;
@@ -60,7 +56,13 @@
     align-items: center;
 }
 
-@media (max-width: 1021px){
+@media (min-width: 1090px){
+    .Nav_dropdown{
+        display: none;
+    }
+}
+
+@media (max-width: 1090px){
     .Navigation_bar{
         flex-direction: row-reverse;
         justify-content: space-between;
@@ -69,9 +71,6 @@
         flex-direction: row-reverse;
     }
     .nav_links > *{
-        display: none;
-    }
-    .Nav_dropdown{
         display: none;
     }
     .drop-down-off{
@@ -120,6 +119,20 @@
     display: flex;
     flex-direction: column;
     justify-content: start;
+    align-items: center;
+}
+
+.flex-col-center-start{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+
+.flex-col-center-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
@@ -556,37 +569,6 @@
     }
     100%{
         background-position: 0% 50%;
-    }
-}
-
-@media (max-width: 768px){
-    .Navigation_bar{
-        flex-direction: row-reverse;
-    }
-    .nav_links > *{
-        display: none;
-    }
-    .Nav_dropdown{
-        display: block;
-    }
-    .drop-down-off{
-        display: block;
-    }
-    .drop-down-on{
-        display: none;
-    }
-    .Brand{
-        font-size: 40px;
-        padding-left: 10px;
-    }
-    .page_margin{
-        margin: 0px;
-        /* margin-top: 100px; */
-    }
-    .event_box{
-        font-size: smaller;
-        height: 150px;
-        width: 300px;
     }
 }
 
@@ -1264,6 +1246,29 @@
 .profile_page_box{
     margin-top: 10px;
 }
-  
+
+.userslist_box{
+    /* width: 450px; */
+    height: 70vh;
+    border-radius: 10px;
+    padding: 10px;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
+
+.userdata_box{
+    flex-wrap: wrap;
+    color:rgb(174, 161, 136);
+    background-color: #010a3e;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    font-size: large;
+    margin: 5px;
+}
+.userdata_box > *{
+    margin: 10px 0px;
+}
+
   
   

@@ -8,4 +8,8 @@ class PagesController < ApplicationController
     def profile
         @merch_purchased = Sale.where(user_id: current_user.id)
     end
+
+    def user_list
+        @all_users = User.all
+    end
 end

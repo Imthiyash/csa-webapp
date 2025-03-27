@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: "users/registrations",
+    sessions: "users/sessions"
+  }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -15,6 +18,7 @@ Rails.application.routes.draw do
   root "pages#home"
 
   get "/profile", to: "pages#profile"
+  get "/user_list", to: "pages#user_list"
   post "events/:id/start", to: "events#start", as: :start
   post "events/:id/end", to: "events#end", as: :end
   resources :event_registrations
