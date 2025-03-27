@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_27_043533) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_27_045132) do
   create_table "batch_points", force: :cascade do |t|
     t.string "batch_name"
     t.decimal "batch_points"
@@ -26,6 +26,29 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_27_043533) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.decimal "price"
+    t.string "image"
+    t.string "is_customized"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sales", force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.integer "user_id", null: false
+    t.string "student_name"
+    t.string "roll_number"
+    t.string "size"
+    t.string "customization_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_sales_on_product_id"
+    t.index ["user_id"], name: "index_sales_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -38,4 +61,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_27_043533) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "sales", "products"
+  add_foreign_key "sales", "users"
 end

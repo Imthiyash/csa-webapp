@@ -43,7 +43,6 @@ class EventsController < ApplicationController
         event = Event.find_by(id: params[:id])
         event_name = event.event_name.to_s
         event.destroy
-        # EventRegistrations.where(event_name: event_name).destroy_all
         redirect_to events_path, notice: "Event deleted successfully"
     end
 end
