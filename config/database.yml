@@ -82,7 +82,7 @@ production:
   primary: &primary_production
     <<: *default
     database: csa_webapp_production
-    username: csa_webapp
+    username: csa_iitm_db_user
     password: <%= ENV["CSA_WEBAPP_DATABASE_PASSWORD"] %>
   cache:
     <<: *primary_production
