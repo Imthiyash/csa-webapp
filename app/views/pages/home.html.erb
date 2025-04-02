@@ -4,7 +4,7 @@
         <% if current_user.present? && current_user.username == "csa" %>
             <div class="announcement-form Create_form">
             <%= form_with model: Announcement.new, url: announcements_path, class: "d-flex", local: true do |form| %>
-                <%= form.text_area :content, placeholder: "New Announcement", required: true, class: "form-control", style: "margin-right: 10px;" %>
+                <%= form.text_area :content, placeholder: "Announce something...", required: true, class: "form-control", style: "margin-right: 10px;" %>
                 <%= form.submit "Add Announcement", class: "submit-button btn btn-success",style: "margin: 10px;"  %>
             <% end %>
             </div>
