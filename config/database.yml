@@ -81,13 +81,13 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    url: <%= ENV["MY_APP_DATABASE_URL"] %>
+    url: <%= ENV["DATABASE_URL"] %>
   cache:
     <<: *primary_production
-    url: <%= ENV["MY_APP_DATABASE_URL"] %>
+    url: <%= ENV["DATABASE_URL"] %>
   queue:
     <<: *primary_production
-    url: <%= ENV["MY_APP_DATABASE_URL"] %>
+    url: <%= ENV["DATABASE_URL"] %>
   cable:
     <<: *primary_production
-    url: <%= ENV["MY_APP_DATABASE_URL"] %>
+    url: <%= ENV["DATABASE_URL"] %>
