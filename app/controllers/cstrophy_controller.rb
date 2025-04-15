@@ -18,4 +18,11 @@ class CstrophyController < ApplicationController
         end
         redirect_to cstrophy_index_path, notice: "Batch points updated successfully!"
     end
+
+    def destroy
+        params.permit(:id)
+        batch = BatchPoints.find_by(id: params[:id])
+        batch.destroy
+        redirect_to cstrophy_index_path
+    end
 end
