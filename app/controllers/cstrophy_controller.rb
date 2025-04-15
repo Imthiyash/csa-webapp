@@ -20,9 +20,13 @@ class CstrophyController < ApplicationController
     end
 
     def destroy
-        params.permit(:id)
-        batch = BatchPoints.find_by(id: params[:id])
-        batch.destroy
-        redirect_to cstrophy_index_path
+        if current_user && current_user.username == "csa"
+            params.permit(:id)
+            batch = BatchPoints.find_by(id: params[:id])
+            batch.destroy
+            redirect_to cstrophy_index_path
+        else
+            nil
+        end
     end
 end
